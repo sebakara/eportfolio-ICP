@@ -1,0 +1,9 @@
+// Version: 1.0.0
+type Institution = {id : InstitutionId; item : Item};
+type InstitutionId = Nat;
+type Item = {description : Text; image : Blob; title : Text};
+type List<T> = ?(T, List<T>);
+actor {
+  stable var Institutions : ?(Institution, List<Institution>);
+  stable var idCounter : Nat
+};
