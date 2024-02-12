@@ -26,7 +26,7 @@ npm start
 
 ## Testing
 
-- After successfully deploy Dapp, first submit the request a institution.
+- After successfully deploy Dapp, first submit the request a institution (Institution logo must be PNG format).
 - After submit the request you will see the list of registered institution where you can view the details.
 - You can login , after login with ICP you can find you new form of creating profile. then you can also logout  anad system back you to the landing page.
 
