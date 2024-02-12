@@ -33,3 +33,9 @@ npm start
 This is the Current phase where we are , but we are still improving this app but adding many functionilities that will be used in E-portfolio.
 
 Copyright E-portfolio Team @KUSHIT ICP HUB EAST AFRICA
+
+## Team members
+- Munyawera Fils
+- Maic Sebakara
+- Kwizera Emmanuel
+
