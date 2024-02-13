@@ -4,6 +4,10 @@ import "./newInstitution.scss";
 function NewProfile() {
   const [saving, setSaving] = useState(false);
 
+  function changeFile(arg0: File | undefined): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <>
       <h1 className="h">Profile registration form</h1>
@@ -93,8 +97,26 @@ function NewProfile() {
           </div>
         </div>
 
+        <div className="form-row">
+          <div className="form-label">
+            User Logo <br /> :{" "}
+          </div>
+          <div className="form-input">
+            <input
+              type="file"
+              onChange={(e) => changeFile(e.target.files?.[0])}
+            />
+          </div>
+        </div>
+
         <div className="form-footer">
-          <button className="form-button">Create your profile</button>
+          <button
+            className="form-button"
+            onClick={NewProfile}
+            disabled={saving}
+          >
+            Submit
+          </button>
         </div>
       </div>
     </>

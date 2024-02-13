@@ -23,13 +23,18 @@ npm start
 - once you login you will see onother menu to Create your profile (There is form there to create new profile we will save in canister in next version of this Dapp)
 - You can logout
 
-
 ## Testing
 
-- After successfully deploy Dapp, first submit the request a institution.
+- After successfully deploy Dapp, first submit the request a institution (Institution logo must be PNG format).
 - After submit the request you will see the list of registered institution where you can view the details.
-- You can login , after login with ICP you can find you new form of creating profile. then you can also logout  anad system back you to the landing page.
+- You can login , after login with ICP you can find you new form of creating profile. then you can also logout anad system back you to the landing page.
 
 This is the Current phase where we are , but we are still improving this app but adding many functionilities that will be used in E-portfolio.
 
 Copyright E-portfolio Team @KUSHIT ICP HUB EAST AFRICA
+
+## Team members
+
+- Munyawera Fils
+- Maic Sebakara
+- Kwizera Emmanuel

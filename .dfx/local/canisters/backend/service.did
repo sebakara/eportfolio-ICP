@@ -11,8 +11,13 @@ type InstitutionOverview =
  };
 type InstitutionId = nat;
 type InstitutionDetails = record {item: Item;};
+/// Import the necessary libraries:
 service : {
+  /// Define a function to retrieve detailed info about an institution using its ID: 
   getInstitutionDetails: (InstitutionId) -> (InstitutionDetails) query;
+  /// Define a function to retrieve all institutions: 
+  /// Specific institutions can be separately retrieved by `getinstitutionDetail`:
   getOverviewList: () -> (vec InstitutionOverview) query;
+  /// Define a function to register a new institution that is open for the defined duration:
   newInstitution: (Item) -> ();
 }

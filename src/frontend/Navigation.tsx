@@ -1,6 +1,6 @@
 import "./Navigation.scss";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { Principal } from "@dfinity/principal";
 import { AuthClient } from "@dfinity/auth-client";
 import { Actor, HttpAgent, Identity } from "@dfinity/agent";
@@ -65,37 +65,44 @@ function Navigation() {
       <div className="menu">
         {!needLogin ? (
           <>
-            {/* <div className="menu-item button_new">
-              <Link to="/">My Accredetation Request sent </Link>
-            </div> */}
-
-            {/* create a profile */}
             <div className="menu-item button_new">
-              {/* Use the standard Link component */}
-              <Link to="/NewProfile">Create Profile </Link>
+              <Link to="/NewProfile">Create Profile</Link>
+            </div>
+            <div className="menu-item button_new">
+              <Link to="/RecordExperience">Record new User Experience</Link>
+            </div>
+            <div className="menu-item button_new">
+              <Link to="/AssignCertificate">Assign User Certificate</Link>
             </div>
 
-            <div className="menu-item-button button_new" onClick={signOut}>
+            <div className="menu-item-button button_newlogin" onClick={signOut}>
               Sign Out
             </div>
-            <div className="menu-item-button button_new">
+            {/* <div className="menu-item-button button_new">
               <div className="principal text">
                 ICP Identity Logged in as: {principal?.toString()}
               </div>
-            </div>
+            </div> */}
           </>
         ) : (
           <>
             <div className="menu-item button_new">
-              <Link to="/newInstitution">Submit a request</Link>
+              <Link to="/">Home</Link>
             </div>
 
             <div className="menu-item button_new">
-              {/* Use the standard Link component */}
-              <Link to="/">View Registered Intitutions </Link>
+              <Link to="/VerifyProfile">Verify User Profile</Link>
             </div>
 
-            <div className="menu-item-button button_new" onClick={signIn}>
+            <div className="menu-item button_new">
+              <Link to="/newInstitution">Submit Accreditation Request</Link>
+            </div>
+
+            <div className="menu-item button_new">
+              <Link to="/viewInstitution">View Registered Institutions</Link>
+            </div>
+
+            <div className="menu-item-button button_newlogin" onClick={signIn}>
               Sign in
             </div>
           </>
@@ -104,8 +111,5 @@ function Navigation() {
     </>
   );
 }
-<footer>
-  <p>&copy; 2024 E-Portfolio Blockchain System. All rights reserved.</p>
-</footer>;
 
 export default Navigation;
