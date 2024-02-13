@@ -4,6 +4,8 @@ import Principal "mo:base/Principal";
 import Timer "mo:base/Timer";
 import Debug "mo:base/Debug";
 import List "mo:base/List";
+import Text "mo:base/Text";
+import Nat64 "mo:base/Nat64";
 
 
 /// Next, define the actor fort he institution platform:
@@ -19,10 +21,46 @@ actor {
     image : Blob;
   };
 
- 
+  type PersonalProfile = {
+  id : Nat64;
+  firstname : Text;
+  middlename : Text;
+  lastname : Text;
+  email : Text;
+  phone_number : Text;
+  date_of_birth : Text;
+  gender : Text;
+  country : Text;
+  address : Text;
+  created_by : Nat;
+  };
+
+// certificate
+ type CertificateInfo = {
+  id:Nat;
+  description: Text;
+  start_date: Text;
+  end_date: Text;
+  created_by:Nat;
+  isued_at:Text;
+  profile_id:Text;
+ };
+
+//  experience
+type ExperienceInfo = {
+  id:Nat;
+  position:Text;
+  start_date: Text;
+  end_date : Text;
+  created_by: Nat;
+  profile_id: Text;
+  short_note: Text;
+};
 
   /// Define an institution ID to uniquely identify the institution:
   type InstitutionId = Nat;
+  type ProfileId = Nat64;
+  // 18446744073709551615
 
   /// Define an institution overview:
   type InstitutionOverview = {
@@ -44,10 +82,16 @@ actor {
  
   };
 
+  type ProfileType = {
+    profile:PersonalProfile;
+  };
+
   /// Create a stable variable to store the institutions:
   stable var Institutions = List.nil<Institution>();
+  stable var Profiles = List.nil<ProfileType>();
   /// Define a counter for generating new institution IDs.
   stable var idCounter = 0;
+  stable var proileId = 00000000000000000000;
 
  
 
@@ -59,6 +103,13 @@ actor {
     id;
   };
 
+  func newProfileId() : ProfileId {
+    let pid = idCounter;
+    idCounter += 1;
+    Nat64.fromNat(pid);
+    // Nat64.fromNat(123)
+  };
+
   /// Define a function to register a new institution that is open for the defined duration:
   public func newInstitution(item : Item) : async () {
     let id = newInstitutionId();
@@ -66,6 +117,19 @@ actor {
     let newInstitution = { id; item; };
     Institutions := List.push(newInstitution, Institutions);
   };
+
+  // define function to register profile
+  // public func newProfile(profile : PersonalProfile) : async (){
+  //    Profiles := List.push(profile, Profiles);
+  // };
+
+  public func newProfile(profile : PersonalProfile) : async () {
+    let id = newProfileId();
+     
+    let newProfile = { id; profile = profile; }; // Create a ProfileType object
+    Profiles := List.push(newProfile, Profiles); // Push the ProfileType object into the Profiles list
+};
+
 
   /// Define a function to retrieve all institutions: 
   /// Specific institutions can be separately retrieved by `getinstitutionDetail`:

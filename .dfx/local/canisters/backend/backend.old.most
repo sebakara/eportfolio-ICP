@@ -3,7 +3,22 @@ type Institution = {id : InstitutionId; item : Item};
 type InstitutionId = Nat;
 type Item = {description : Text; image : Blob; title : Text};
 type List<T> = ?(T, List<T>);
+type PersonalProfile =
+  {
+    address : Text;
+    country : Text;
+    date_of_birth : Text;
+    email : Text;
+    firstname : Text;
+    gender : Text;
+    lastname : Text;
+    middlename : Text;
+    phone_number : Text
+  };
+type ProfileType = {profile : PersonalProfile};
 actor {
   stable var Institutions : ?(Institution, List<Institution>);
-  stable var idCounter : Nat
+  stable var Profiles : ?(ProfileType, List<ProfileType>);
+  stable var idCounter : Nat;
+  stable var proileId : Nat
 };

@@ -1,3 +1,15 @@
+type PersonalProfile = 
+ record {
+   address: text;
+   country: text;
+   date_of_birth: text;
+   email: text;
+   firstname: text;
+   gender: text;
+   lastname: text;
+   middlename: text;
+   phone_number: text;
+ };
 type Item = 
  record {
    description: text;
@@ -15,4 +27,5 @@ service : {
   getInstitutionDetails: (InstitutionId) -> (InstitutionDetails) query;
   getOverviewList: () -> (vec InstitutionOverview) query;
   newInstitution: (Item) -> ();
+  newProfile: (PersonalProfile) -> ();
 }

@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 function NewInstitution() {
   const [title, setTitle] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword ] = useState("");
+  const [cpassword, setSpassword] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(Uint8Array.of());
   const [duration, setDuration] = useState(120);
@@ -18,7 +21,11 @@ function NewInstitution() {
         title,
         description,
         image,
+        email,
+        password
       };
+
+      console.log(newInstitution);
       await backend.newInstitution(newInstitution);
       navigate("/");
     } catch (error) {
@@ -79,11 +86,23 @@ function NewInstitution() {
             />
           </div>
         </div>
+
+        <div className="form-row">
+          <div className="form-label">
+            Email:
+          </div>
+          <div className="form-input">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="form-row">
           <div className="form-label">
             full Description
-            <br />
-            of what you do:{" "}
+            
           </div>
           <div className="form-input">
             <textarea
@@ -92,6 +111,35 @@ function NewInstitution() {
             />
           </div>
         </div>
+        {/* password box */}
+
+        <div className="form-row">
+          <div className="form-label">
+            Password:
+          </div>
+          <div className="form-input">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+        {/* cpassword */}
+
+        <div className="form-row">
+          <div className="form-label">
+            Confirm Password:
+          </div>
+          <div className="form-input">
+            <input
+              type="password"
+              value={cpassword}
+              onChange={(e) => setSpassword(e.target.value)}
+            />
+          </div>
+        </div>
+
         <div className="form-row">
           <div className="form-label">
             Logo of your <br /> Institution (PNG only):{" "}
