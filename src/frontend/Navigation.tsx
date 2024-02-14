@@ -1,13 +1,17 @@
-import "./Navigation.scss";
 import React, { useEffect, useState } from "react";
+import "./Navigation.scss";
 import { Link } from "react-router-dom";
 import { Principal } from "@dfinity/principal";
 import { AuthClient } from "@dfinity/auth-client";
 import { Actor, HttpAgent, Identity } from "@dfinity/agent";
 import { backend } from "../declarations/backend";
-import motoko from "./assets/p10.jpeg";
 
-function Navigation() {
+interface NavigationProps {
+  isLoggedIn: boolean;
+  handleLoginStatus: (status: boolean) => void;
+}
+
+function Navigation({ isLoggedIn, handleLoginStatus }: NavigationProps) {
   const [principal, setPrincipal] = useState<Principal | undefined>(undefined);
   const [needLogin, setNeedLogin] = useState(true);
 
@@ -30,6 +34,7 @@ function Navigation() {
     const identity = authClient.getIdentity();
     updateIdentity(identity);
     setNeedLogin(false);
+    handleLoginStatus(true);
   };
 
   const signOut = async () => {
@@ -38,6 +43,7 @@ function Navigation() {
     const identity = authClient.getIdentity();
     updateIdentity(identity);
     setNeedLogin(true);
+    handleLoginStatus(false);
   };
 
   const updateIdentity = (identity: Identity) => {
@@ -65,24 +71,29 @@ function Navigation() {
       <div className="menu">
         {!needLogin ? (
           <>
+            {/* <div className="menu-item button_new">
+              <Link to="/">Dashboard</Link>
+            </div>
+
             <div className="menu-item button_new">
               <Link to="/NewProfile">Create Profile</Link>
             </div>
             <div className="menu-item button_new">
-              <Link to="/RecordExperience">Record new User Experience</Link>
+              <Link to="/RecordExperience">Record new Experience</Link>
             </div>
             <div className="menu-item button_new">
-              <Link to="/AssignCertificate">Assign User Certificate</Link>
+              <Link to="/AssignCertificate">Assign Certificate</Link>
+            </div> */}
+
+            <div className="menu-item-button button_new">
+              <div className="principal text">
+                Welcome Back, Logged as: {principal?.toString()}
+              </div>
             </div>
 
             <div className="menu-item-button button_newlogin" onClick={signOut}>
               Sign Out
             </div>
-            {/* <div className="menu-item-button button_new">
-              <div className="principal text">
-                ICP Identity Logged in as: {principal?.toString()}
-              </div>
-            </div> */}
           </>
         ) : (
           <>
@@ -91,15 +102,15 @@ function Navigation() {
             </div>
 
             <div className="menu-item button_new">
-              <Link to="/VerifyProfile">Verify User Profile</Link>
+              <Link to="/VerifyProfile">Verify Profile</Link>
             </div>
 
             <div className="menu-item button_new">
-              <Link to="/newInstitution">Submit Accreditation Request</Link>
+              <Link to="/newInstitution">Submit Request</Link>
             </div>
 
             <div className="menu-item button_new">
-              <Link to="/viewInstitution">View Registered Institutions</Link>
+              <Link to="/viewInstitution">View Institutions</Link>
             </div>
 
             <div className="menu-item-button button_newlogin" onClick={signIn}>

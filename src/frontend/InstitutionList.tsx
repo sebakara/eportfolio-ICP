@@ -55,7 +55,10 @@ function InstitutionList() {
         </div>
       )}
       {list?.length == 0 && (
-        <div className="section">No Registred Company / Intitution so far</div>
+        <div className="ErrorMessageNew">
+          No Registred Company / Institution so far. Please Submit a Request
+          first on above menu.
+        </div>
       )}
       {list != null && list.length > 0 && (
         <ul className="gallery">{overviewList}</ul>

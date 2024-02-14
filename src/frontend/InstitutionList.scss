@@ -22,7 +22,7 @@
     line-height: 1.1;
     background-color: white;
     color: black;
-}
+} 
 
 .description {
     font-size: 1.3em;
@@ -55,4 +55,8 @@
     border-radius: 5px; /* Rounded corners */
     cursor: pointer;
     transition: background 0.3s ease; /* Smooth transition on hover */
+}
+.ErrorMessageNew
+{
+    color: darkblue;
 }

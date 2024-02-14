@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import InstitutionList from "./InstitutionList";
@@ -7,33 +7,61 @@ import ImageSlider from "./ImageSlider";
 import NewInstitution from "./newInstitution";
 import NewProfile from "./newProfile";
 import VerifyProfile from "./VerifyProfile";
-
 import RecordExperience from "./RecordExperience";
 import InstitutionDetail from "./InstitutionDetail";
+import Dashboard from "./Dashboard"; // Import the Dashboard component
 import AssignCertificate from "./AssignCertificate";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLoginStatus = (
+    status: boolean | ((prevState: boolean) => boolean)
+  ) => {
+    setIsLoggedIn(status);
+  };
+
   return (
     <BrowserRouter>
       <div>
-        <Navigation />
-        <ImageSlider />
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/viewInstitution" element={<InstitutionList />} />{" "}
-            {/* Update this route */}
-            <Route path="/newInstitution" element={<NewInstitution />} />
-            <Route
-              path="/viewInstitution/:id"
-              element={<InstitutionDetail />}
-            />
-            <Route path="/newProfile" element={<NewProfile />} />
-            <Route path="/VerifyProfile" element={<VerifyProfile />} />
-            <Route path="/RecordExperience" element={<RecordExperience />} />
-            <Route path="/AssignCertificate" element={<AssignCertificate />} />
-          </Routes>
-        </div>
+        <Navigation
+          isLoggedIn={isLoggedIn}
+          handleLoginStatus={handleLoginStatus}
+        />
+        {isLoggedIn ? (
+          <Dashboard
+            isLoggedIn={false}
+            handleLoginStatus={function (status: boolean): void {
+              throw new Error("Function not implemented.");
+            }}
+          /> // Render Dashboard component if user is logged in
+        ) : (
+          <>
+            <ImageSlider />
+            <div className="content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/viewInstitution" element={<InstitutionList />} />
+                <Route path="/newInstitution" element={<NewInstitution />} />
+                <Route
+                  path="/viewInstitution/:id"
+                  element={<InstitutionDetail />}
+                />
+                <Route path="/newProfile" element={<NewProfile />} />
+                <Route path="/VerifyProfile" element={<VerifyProfile />} />
+
+                <Route
+                  path="/RecordExperience"
+                  element={<RecordExperience />}
+                />
+                <Route
+                  path="/AssignCertificate"
+                  element={<AssignCertificate />}
+                />
+              </Routes>
+            </div>
+          </>
+        )}
       </div>
     </BrowserRouter>
   );
