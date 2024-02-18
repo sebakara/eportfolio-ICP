@@ -2,10 +2,12 @@ type PersonalProfile =
  record {
    address: text;
    country: text;
+   created_by: nat;
    date_of_birth: text;
    email: text;
    firstname: text;
    gender: text;
+   id: nat64;
    lastname: text;
    middlename: text;
    phone_number: text;
@@ -23,9 +25,29 @@ type InstitutionOverview =
  };
 type InstitutionId = nat;
 type InstitutionDetails = record {item: Item;};
+type ExperienceInfo = 
+ record {
+   created_by: nat;
+   end_date: text;
+   position: text;
+   profile_id: nat64;
+   short_note: text;
+   start_date: text;
+ };
+type CertificateInfo = 
+ record {
+   created_by: nat;
+   description: text;
+   end_date: text;
+   isued_at: text;
+   profile_id: nat64;
+   start_date: text;
+ };
 service : {
   getInstitutionDetails: (InstitutionId) -> (InstitutionDetails) query;
   getOverviewList: () -> (vec InstitutionOverview) query;
+  newCertificate: (CertificateInfo) -> ();
+  newExperience: (ExperienceInfo) -> ();
   newInstitution: (Item) -> ();
   newProfile: (PersonalProfile) -> ();
 }

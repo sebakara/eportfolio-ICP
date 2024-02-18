@@ -6,6 +6,7 @@ import Debug "mo:base/Debug";
 import List "mo:base/List";
 import Text "mo:base/Text";
 import Nat64 "mo:base/Nat64";
+import Timestamp "mo:base/Time";
 
 
 /// Next, define the actor fort he institution platform:
@@ -13,11 +14,10 @@ import Nat64 "mo:base/Nat64";
 actor {
   /// Define an item for the Institution: 
   type Item = {
-    /// Define a title for the Institution:
     title : Text;
-    /// Define a description for the Institution:
     description : Text;
-    /// Define an image used as an icon for the Institution:
+    email:Text;
+    password:Text;
     image : Blob;
   };
 
@@ -33,68 +33,95 @@ actor {
   country : Text;
   address : Text;
   created_by : Nat;
+  created_at:Time.now();
   };
 
 // certificate
  type CertificateInfo = {
-  id:Nat;
+  // id:Nat;
   description: Text;
   start_date: Text;
   end_date: Text;
   created_by:Nat;
   isued_at:Text;
-  profile_id:Text;
+  profile_id: Nat64;
  };
 
 //  experience
 type ExperienceInfo = {
-  id:Nat;
+  // id:Nat;
   position:Text;
   start_date: Text;
   end_date : Text;
   created_by: Nat;
-  profile_id: Text;
+  profile_id: Nat64;
+  short_note: Text;
+};
+// Education
+type EducationInfo = {
+  // int:Nat;
+  academic_level: Text;
+  school_name:Text;
+  start_date: Text;
+  end_date:Text;
+  created_by: Nat;
+  profile_id: Nat64;
   short_note: Text;
 };
 
   /// Define an institution ID to uniquely identify the institution:
   type InstitutionId = Nat;
+  type InstitutionEmail = Text;
+  type Institutionpwd = Text;
   type ProfileId = Nat64;
+  type Certificate_Id = Nat;
+  type ExperienceId = Nat;
+  type EducationId = Nat;
   // 18446744073709551615
 
   /// Define an institution overview:
   type InstitutionOverview = {
     id : InstitutionId;
-    /// Define the institution sold at the item:
     item : Item;
   };
 
   /// Define the details of the institution:
   type InstitutionDetails = {
     item : Item;
-  
   };
 
   /// Define an internal, non-shared type for storing info about the institution:
   type Institution = {
     id : InstitutionId;
     item : Item;
- 
   };
 
   type ProfileType = {
     profile:PersonalProfile;
   };
 
+  type CertificateType = {
+    certificate_data:CertificateInfo;
+  };
+    type ExperienceType = {
+    experience_data:ExperienceInfo;
+  };
+    type EducationType = {
+    education_data:EducationInfo;
+  };
+
   /// Create a stable variable to store the institutions:
   stable var Institutions = List.nil<Institution>();
   stable var Profiles = List.nil<ProfileType>();
+  stable var Certificates = List.nil<CertificateType>();
+  stable var Experiences = List.nil<ExperienceType>();
+  stable var Educations = List.nil<EducationType>();
   /// Define a counter for generating new institution IDs.
-  stable var idCounter = 0;
+  stable var idCounter = 1;
+  stable var idcercounter = 1;
+  stable var idexpcounter = 1;
+  stable var ideducounter = 1;
   stable var proileId = 00000000000000000000;
-
- 
-
 
   /// Define a function to generating a new Institution:
   func newInstitutionId() : InstitutionId {
@@ -107,9 +134,38 @@ type ExperienceInfo = {
     let pid = idCounter;
     idCounter += 1;
     Nat64.fromNat(pid);
-    // Nat64.fromNat(123)
   };
 
+  func newCertificateId() : Certificate_Id {
+        let cid = idcercounter;
+        idcercounter += 1;
+        cid;
+  };
+
+    func newExperienceId() : ExperienceId {
+        let eid = idexpcounter;
+        idexpcounter += 1;
+        eid;
+  };
+
+    func newEducationId() : EducationId {
+        let edid = ideducounter;
+        ideducounter += 1;
+        edid;
+  };
+// function to register experinces
+// Experiences
+//  Educations
+// CertificateInfo
+// ExperienceInfo
+// EducationInfo
+// experience_data
+// education_data
+  public func newExperience(experience : ExperienceInfo) : async () {
+    let id = newExperienceId();
+    let nwExperience = { id; experience_data = experience; };
+    Experiences := List.push(nwExperience, Experiences);
+  };
   /// Define a function to register a new institution that is open for the defined duration:
   public func newInstitution(item : Item) : async () {
     let id = newInstitutionId();
@@ -117,12 +173,15 @@ type ExperienceInfo = {
     let newInstitution = { id; item; };
     Institutions := List.push(newInstitution, Institutions);
   };
+// record certificates
+  // define function to register profile
+  public func newCertificate(certificate : CertificateInfo) : async () {
+    let id = newCertificateId();
+    let nwCertificate = { id; certificate_data = certificate; };
+    Certificates := List.push(nwCertificate, Certificates);
+  };
 
   // define function to register profile
-  // public func newProfile(profile : PersonalProfile) : async (){
-  //    Profiles := List.push(profile, Profiles);
-  // };
-
   public func newProfile(profile : PersonalProfile) : async () {
     let id = newProfileId();
      
@@ -152,15 +211,28 @@ func findInstitution(institutionId : InstitutionId) : Institution {
   }
 };
 
-
   /// Define a function to retrieve detailed info about an institution using its ID: 
 public query func getInstitutionDetails(institutionId : InstitutionId) : async InstitutionDetails {
   let institution = findInstitution(institutionId);
   { item = institution.item };
 };
-
-
-
-
  
+// InstitutionEmail
+// Institutionpwd
+//  check with email and password
+// func findInstututionByEmail(email:InstitutionEmail, password:Institutionpwd ) : InstitutionDetails{
+
+// let result  = List.find<Institution>(Institutions, func(inst : InstitutionDetails) { inst.email== email && inst.password == password });
+//   switch (result) {
+//     case null { Debug.trap("Inexistent id"); };
+//     case (?institution) { institution };
+//   }
+// };
+
+// public query func getInstitutionByEmailAndPassword( email:InstitutionEmail, password:Institutionpwd ) : async InstitutionDetails{
+//   let institution = findInstututionByEmail(email,password);
+//   { institution } 
+// }
+
+
 };
