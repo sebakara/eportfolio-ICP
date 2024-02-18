@@ -22,7 +22,9 @@
 }
 
 .form-input input[type="text"],
-.form-input input[type="date"] {
+.form-input input[type="date"],
+.form-input input[type="password"],
+.form-input input[type="email"] {
     width: 500px; /* Adjust input width to fill remaining space */
     padding: 12px; /* Increase padding for better spacing */
     border: 1px solid #007bff; /* Blue border */

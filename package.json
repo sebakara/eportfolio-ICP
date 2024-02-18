@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "setup": "npm ci && dfx canister create backend && dfx generate backend && dfx deploy",
-    "start": "run-p frontend backend",
+    "start": "node api.js && run-p frontend backend",
     "frontend": "vite --port 3000",
     "backend": "mo-dev --generate --deploy -y",
-    "build": "tsc && vite build",
+    "build": "node api.js && tsc && vite build",
     "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\" \"src/backend/**/*.mo\""
   },
   "dependencies": {
