@@ -6,6 +6,9 @@ import { Principal } from "@dfinity/principal";
 import { AuthClient } from "@dfinity/auth-client";
 import { Actor, HttpAgent, Identity } from "@dfinity/agent";
 import { backend } from "../declarations/backend";
+import NewProfile from "./newProfile";
+import RecordExperience from "./RecordExperience";
+import AssignCertificate from "./AssignCertificate";
 
 interface NavigationProps {
   isLoggedIn: boolean;
@@ -15,6 +18,7 @@ interface NavigationProps {
 function Dashboard({ isLoggedIn, handleLoginStatus }: NavigationProps) {
   const [principal, setPrincipal] = useState<Principal | undefined>(undefined);
   const [needLogin, setNeedLogin] = useState(true);
+  const [selectedMenu, setSelectedMenu] = useState<string>("dashboard");
 
   const authClientPromise = AuthClient.create();
 
@@ -37,6 +41,7 @@ function Dashboard({ isLoggedIn, handleLoginStatus }: NavigationProps) {
     setNeedLogin(false);
     handleLoginStatus(true);
   };
+
   const signOut = async () => {
     const authClient = await authClientPromise;
     await authClient.logout();
@@ -65,6 +70,72 @@ function Dashboard({ isLoggedIn, handleLoginStatus }: NavigationProps) {
   useEffect(() => {
     setInitialIdentity();
   }, []);
+
+  const renderSelectedModule = () => {
+    switch (selectedMenu) {
+      case "createProfile":
+        return <NewProfile />;
+      case "recordExperience":
+        return <RecordExperience />;
+      case "assignCertificate":
+        return <AssignCertificate />;
+      default:
+        return (
+          <div>
+            <div className="box-container">
+              <div className="box box1">
+                <div className="text">
+                  <h2 className="topic-heading">5</h2>
+                  <h2 className="topic">Registered Institutions</h2>
+                </div>
+              </div>
+              <div className="box box2">
+                <div className="text">
+                  <h2 className="topic-heading">10</h2>
+                  <h2 className="topic">Registered Profiles</h2>
+                </div>
+              </div>
+              <div className="box box3">
+                <div className="text">
+                  <h2 className="topic-heading">4</h2>
+                  <h2 className="topic">Registered Certificates</h2>
+                </div>
+              </div>
+              <div className="box box4">
+                <div className="text">
+                  <h2 className="topic-heading">2</h2>
+                  <h2 className="topic">Registered Work Experiences</h2>
+                </div>
+              </div>
+            </div>
+            <div className="report-container">
+              <div className="report-header">
+                <h1 className="recent-Articles">Recent created profiles</h1>
+              </div>
+              <div className="report-body">
+                <div className="report-topic-heading">
+                  <h3 className="t-op">Image</h3>
+                  <h3 className="t-op">Name</h3>
+                  <h3 className="t-op">Phone</h3>
+                  <h3 className="t-op">More</h3>
+                  <h3 className="t-op">Documents</h3>
+                </div>
+                <div className="items">
+                  <div className="item1">
+                    <h3 className="t-op-nextlvl">Image Here </h3>
+                    <h3 className="t-op-nextlvl">Kwizera Emmanuel</h3>
+                    <h3 className="t-op-nextlvl">+250 788 </h3>
+                    <h3 className="t-op-nextlvl label-tag">Get Details</h3>
+                    <h3 className="view">Get Doc</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+    }
+  };
+
   return (
     <>
       <div className="main-container">
@@ -72,79 +143,28 @@ function Dashboard({ isLoggedIn, handleLoginStatus }: NavigationProps) {
           <nav className="nav">
             <div className="nav-upper-options">
               <div className="nav-option option1">
-                <h3> Dashboard</h3>
+                <h3 onClick={() => setSelectedMenu("dashboard")}> Dashboard</h3>
               </div>
               <div className="nav-option option1">
-                {" "}
-                <Link to="/NewProfile">Create Profile</Link>{" "}
+                <h3 onClick={() => setSelectedMenu("createProfile")}>
+                  Create Profile
+                </h3>
               </div>
               <div className="nav-option option1">
-                {" "}
-                <Link to="/RecordExperience">Record Experience</Link>{" "}
+                <h3 onClick={() => setSelectedMenu("recordExperience")}>
+                  Record Experience
+                </h3>
               </div>
               <div className="nav-option option1">
-                <Link to="/AssignCertificate">Assign Certificate</Link>{" "}
-              </div>{" "}
+                <h3 onClick={() => setSelectedMenu("assignCertificate")}>
+                  Assign Certificate
+                </h3>
+              </div>
             </div>
           </nav>
         </div>
-        <div className="main">
-          <div className="box-container">
-            <div className="box box1">
-              <div className="text">
-                <h2 className="topic-heading">5</h2>
-                <h2 className="topic">Registered Institutions</h2>
-              </div>
-            </div>
 
-            <div className="box box2">
-              <div className="text">
-                <h2 className="topic-heading">10</h2>
-                <h2 className="topic">Registered Profiles</h2>
-              </div>
-            </div>
-
-            <div className="box box3">
-              <div className="text">
-                <h2 className="topic-heading">4</h2>
-                <h2 className="topic">Registered Certificates</h2>
-              </div>
-            </div>
-
-            <div className="box box4">
-              <div className="text">
-                <h2 className="topic-heading">2</h2>
-                <h2 className="topic">Registered Work Experiences</h2>
-              </div>
-            </div>
-          </div>
-
-          <div className="report-container">
-            <div className="report-header">
-              <h1 className="recent-Articles">Recent created profiles</h1>
-            </div>
-
-            <div className="report-body">
-              <div className="report-topic-heading">
-                <h3 className="t-op">Image</h3>
-                <h3 className="t-op">Name</h3>
-                <h3 className="t-op">Phone</h3>
-                <h3 className="t-op">More</h3>
-                <h3 className="t-op">Documents</h3>
-              </div>
-
-              <div className="items">
-                <div className="item1">
-                  <h3 className="t-op-nextlvl">Image Here </h3>
-                  <h3 className="t-op-nextlvl">Kwizera Emmanuel</h3>
-                  <h3 className="t-op-nextlvl">+250 788 </h3>
-                  <h3 className="t-op-nextlvl label-tag">Get Details</h3>
-                  <h3 className="view">Get Doc</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div className="main">{renderSelectedModule()}</div>
       </div>
     </>
   );

@@ -99,7 +99,7 @@ function NewProfile() {
 
         <div className="form-row">
           <div className="form-label">
-            User Logo <br /> :{" "}
+            Profile Image <br /> :{" "}
           </div>
           <div className="form-input">
             <input
