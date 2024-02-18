@@ -31,6 +31,7 @@ function InstitutionDetail() {
         setInstitutionDetails(
           await backend.getInstitutionDetails(institutionId)
         );
+        console.log("details ",setInstitutionDetails);
         const authClient = await AuthClient.create();
         setAuthenticated(await authClient.isAuthenticated());
       } catch (error) {
