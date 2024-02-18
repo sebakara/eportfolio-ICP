@@ -142,24 +142,18 @@ function Dashboard({ isLoggedIn, handleLoginStatus }: NavigationProps) {
         <div className="navcontainer">
           <nav className="nav">
             <div className="nav-upper-options">
-              <div className="nav-option option1">
-                <h3 onClick={() => setSelectedMenu("dashboard")}> Dashboard</h3>
-              </div>
-              <div className="nav-option option1">
-                <h3 onClick={() => setSelectedMenu("createProfile")}>
-                  Create Profile
-                </h3>
-              </div>
-              <div className="nav-option option1">
-                <h3 onClick={() => setSelectedMenu("recordExperience")}>
-                  Record Experience
-                </h3>
-              </div>
-              <div className="nav-option option1">
-                <h3 onClick={() => setSelectedMenu("assignCertificate")}>
-                  Assign Certificate
-                </h3>
-              </div>
+              <h3 onClick={() => setSelectedMenu("dashboard")}>
+                <div className="nav-option option1">Dashboard</div>
+              </h3>
+              <h3 onClick={() => setSelectedMenu("createProfile")}>
+                <div className="nav-option option1">Create Profile</div>
+              </h3>
+              <h3 onClick={() => setSelectedMenu("recordExperience")}>
+                <div className="nav-option option1">Record Experience</div>
+              </h3>
+              <h3 onClick={() => setSelectedMenu("assignCertificate")}>
+                <div className="nav-option option1">Assign Certificate</div>
+              </h3>
             </div>
           </nav>
         </div>
