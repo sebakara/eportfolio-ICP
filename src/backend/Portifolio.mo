@@ -6,7 +6,7 @@ import Debug "mo:base/Debug";
 import List "mo:base/List";
 import Text "mo:base/Text";
 import Nat64 "mo:base/Nat64";
-import Timestamp "mo:base/Time";
+import Time "mo:base/Time";
 
 
 /// Next, define the actor fort he institution platform:
@@ -32,8 +32,9 @@ actor {
   gender : Text;
   country : Text;
   address : Text;
+  image : Blob;
   created_by : Nat;
-  created_at:Time.now();
+  created_at:Text;
   };
 
 // certificate
@@ -90,6 +91,11 @@ type EducationInfo = {
     item : Item;
   };
 
+  type ProfileDetails = {
+    id:ProfileId;
+    profile:PersonalProfile;
+  };
+
   /// Define an internal, non-shared type for storing info about the institution:
   type Institution = {
     id : InstitutionId;
@@ -122,6 +128,7 @@ type EducationInfo = {
   stable var idexpcounter = 1;
   stable var ideducounter = 1;
   stable var proileId = 00000000000000000000;
+
 
   /// Define a function to generating a new Institution:
   func newInstitutionId() : InstitutionId {
@@ -185,7 +192,7 @@ type EducationInfo = {
   public func newProfile(profile : PersonalProfile) : async () {
     let id = newProfileId();
      
-    let newProfile = { id; profile = profile; }; // Create a ProfileType object
+    let newProfile = { id; profile = profile;}; // Create a ProfileType object
     Profiles := List.push(newProfile, Profiles); // Push the ProfileType object into the Profiles list
 };
 
@@ -216,7 +223,12 @@ public query func getInstitutionDetails(institutionId : InstitutionId) : async I
   let institution = findInstitution(institutionId);
   { item = institution.item };
 };
- 
+//  ProfileDetails
+// public query func getProfiles(profileId : ProfileId) : async ProfileDetails {
+//   let profile = List.find<ProfileDetails>(Profiles, func(prof: ProfileDetails){ prof.id == profileId});
+//   {profile}
+
+// };
 // InstitutionEmail
 // Institutionpwd
 //  check with email and password
@@ -233,6 +245,8 @@ public query func getInstitutionDetails(institutionId : InstitutionId) : async I
 //   let institution = findInstututionByEmail(email,password);
 //   { institution } 
 // }
+// get profiles
+
 
 
 };

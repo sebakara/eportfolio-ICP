@@ -15,6 +15,7 @@ type EducationInfo =
     created_by : Nat;
     end_date : Text;
     profile_id : Nat64;
+    school_name : Text;
     short_note : Text;
     start_date : Text
   };

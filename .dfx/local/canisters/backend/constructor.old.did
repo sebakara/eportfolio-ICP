@@ -15,7 +15,9 @@ type PersonalProfile =
 type Item = 
  record {
    description: text;
+   email: text;
    image: blob;
+   password: text;
    title: text;
  };
 type InstitutionOverview = 

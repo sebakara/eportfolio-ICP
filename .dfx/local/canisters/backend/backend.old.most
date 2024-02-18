@@ -15,6 +15,7 @@ type EducationInfo =
     created_by : Nat;
     end_date : Text;
     profile_id : Nat64;
+    school_name : Text;
     short_note : Text;
     start_date : Text
   };
@@ -31,7 +32,14 @@ type ExperienceInfo =
 type ExperienceType = {experience_data : ExperienceInfo};
 type Institution = {id : InstitutionId; item : Item};
 type InstitutionId = Nat;
-type Item = {description : Text; image : Blob; title : Text};
+type Item =
+  {
+    description : Text;
+    email : Text;
+    image : Blob;
+    password : Text;
+    title : Text
+  };
 type List<T> = ?(T, List<T>);
 type PersonalProfile =
   {
